@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>You're lost!</h1>
+        <h1>This probably isn't the page you're looking for.</h1>
+        <img src={{ url_for("static", filename="404.png") }}>
+    </div>
+</div>
+{% endblock %}

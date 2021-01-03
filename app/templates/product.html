@@ -19,6 +19,7 @@
               <th scope="col">Price</th>
               <th scope="col">Description</th>
               <th scope="col">Classification</th>
+              <th scope="col">Product Reviews</th>
               <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -47,7 +48,9 @@
                             <td>{{ product["price"] }}</td>
                             <td>{{ product["description"] }}</td>
                             <td>{{ product["unique_tag"] }}</td>
-                            <td><form method="PUT" name="deactivate" id="{{ product['id'] }}">{{ wtf.quick_form(form) }}</form></td>
+                            <td><button><a href="/product_review_form/{{ product['name'] }}/{{product['id']}}">Leave Review</a></button></td>
+                            <td><button><a href="product/review/{{ product['name'] }}/{{product['id']}}" >Display Reviews</a></button></td>
+                            <td><button><a href="product/{{product['id']}}/1" >Delete</a></button></td>
                         </tr>
                     
                 {% endif %}
@@ -93,7 +96,7 @@
                         <td>{{ product["price"] }}</td>
                         <td>{{ product["description"] }}</td>
                         <td>{{ product["unique_tag"] }}</td>
-                        <td><form method="PUT">{{ wtf.quick_form(form_A) }}</td>
+                         <td><button><a href="products/{{product['id']}}/0" >Recover</a></button></td>
                     </tr>
                 {% endif %}
             {% endfor %}

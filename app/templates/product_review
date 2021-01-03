@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<div class="container">
+    <h1>Product review</h1>
+    
+   
+    <hr>
+    </p>
+    
+    <table class="table table-dark">
+        <thead class="thead-dark">
+               <tr>
+                <th scope="col">Product Id</th>
+                <th scope="col">Product</th>
+                <th scope="col">Review Comment</th>
+                <th scope="col">Comment Id</th>
+                </tr>
+        </thead>
+        <tbody>
+      
+            {% for review in reviews %} 
+               
+                                          
+                        <tr style='{{ color }}'>
+                            <th scope="row">{{ review["prodId"] }}</th>
+                             <td>{{ name }}</td>
+                             <td>{{ review["review"] }}</td>
+                             <td>{{ review["id"] }}</td>
+                        </tr>
+                    
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+ <button><a href="/products" >Close</a></button>
+   
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Gear</th>
+              <th scope="col">Category</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Description</th>
+                <th scope="col">Product Reviews</th>
+              <th scope="col">Classification</th>
+              <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+      
+            {% for product in products %} 
+               
+                {% if product["active"] == False %}
+
+                   
+                    {% set color = '' %}
+                  
+                    {% if product["quantity"] <= 100 %}
+                        {% set color = 'background-color:red;' %}
+                    {% elif product["quantity"] <= 500 %}
+                        {% set color = 'background-color:yellow;' %}
+                    {% else %}
+                        {% set color = '' %}
+                    {% endif %}
+                    <tr style='{{ color }}'>
+                        <th scope="row">{{ product["id"] }}</th>
+                        <td>{{ product["name"] }}</td>
+                        <td>{{ product["category"] }}</td>
+                        <td>{{ product["quantity"] }}</td>
+                        <td>{{ product["price"] }}</td>
+                        <td>{{ product["description"] }}</td>
+                        <td>{{ product["unique_tag"] }}</td>
+                        <td><button><a href="/product_review_form">Leave Review</a></button></td>
+                        <td><button><a href="products/review/{{product['id']}}" >Display Reviews</a></button></td>
+                       <td><button><a href="products/{{product['id']}}/1" >Delete</a></button></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Gear</th>
+                <th scope="col">Category</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Classification</th>
+                <th scope="col">Un-Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+       
+                {% for product in products %}                  
+                    {% if product["active"] == False %}
+                        {% set color = '' %}
+                        <!-- determine row color -->
+                        {% if product["quantity"] <= 100 %}
+                            {% set color = 'background-color:red;' %}
+                        {% elif product["quantity"] <= 500 %}
+                            {% set color = 'background-color:yellow;' %}
+                        {% else %}
+                            {% set color = '' %}
+                        {% endif %}
+                           
+                        <tr style='{{ color }}'>
+                            <th scope="row">{{ product["id"] }}</th>
+                            <td>{{ product["name"] }}</td>
+                            <td>{{ product["category"] }}</td>
+                            <td>{{ product["quantity"] }}</td>
+                            <td>{{ product["price"] }}</td>
+                            <td>{{ product["description"] }}</td>
+                            <td>{{ product["unique_tag"] }}</td>
+                            <td><button><a href="product/{{product['id']}}/0" >Recover</a></button></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</div>
+{% endblock %}

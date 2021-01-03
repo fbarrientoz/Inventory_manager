@@ -4,7 +4,7 @@
 
 from flask import request, render_template, redirect, url_for #
 from app import app
-from app.database import create, read, update, delete, scan
+from app.database import create, read, update, delete, scan, softdelete
 from datetime import datetime
 from app.forms.product import ProductForm
 from app.forms.deactivate import DeleteProduct, ActivateProduct
@@ -84,6 +84,17 @@ def get_all_products():
 
             #rerender template
             return redirect(url_for('get_all_products'))
+        
+        
+@app.route("/products/<pid>/<value>", methods=["GET"])
+def delete_product(pid, value):
+
+    out = softdelete(int(pid), int(value))
+
+    #out = scan()
+
+    #rerender template
+    return redirect(url_for('get_all_products')) 
         
 
 @app.route("/aboutme")
